@@ -1,0 +1,28 @@
+#!/bin/bash
+function menu {
+        echo "1. Ayuda con despliegues"
+        echo "2. Ayuda con contenedores"
+        echo "3. Ayuda Netstat"
+        echo "9. Salir"
+        read OPTION
+        netstat -ntpl >> /var/datatools/netstat_`date +%d%m%Y_%H%M`
+        if [ $OPTION -eq 1 ];then
+                cat /var/datatools/ayuda_despliegues
+        elif [ $OPTION -eq 2 ];then
+                sh /var/datatools/contenedores.sh
+        elif [ $OPTION -eq 3 ];then
+                cat $(ls -1tr /var/datatools/netstat* | head -n 1)
+                echo "Anteriores buscar en /var/datatools/netstat*"
+                valida=` ls /var/datatools/netstat* | wc -l`
+                if [ $valida -gt 5 ]; then
+                ls -1tr  /var/datatools/netstat* | head -n 1 | xargs rm
+                fi
+        elif [ $OPTION -eq 9 ];then
+                exit
+        else
+                echo "Opcion no valida"
+                menu
+        fi
+}
+
+menu
