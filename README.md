@@ -1,4 +1,4 @@
 # data
-echo "alias ayuda=/var/datatools/ayuda" ;
+echo "alias ayuda=/var/datatools/ayuda" >> /root/.bashrc  ;
 cp ayuda /var/datatools/ ;
 cp contenedores.sh /var/datatools/ ;
